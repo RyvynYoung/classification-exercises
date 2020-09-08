@@ -2,3 +2,6 @@
 env.py
 .ipynb_checkpoints/
 __paycache__
+titanic.csv
+iris.csv
+Spreadsheets_Exercises_Solutions.xlsx
