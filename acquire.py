@@ -10,30 +10,24 @@ def get_connection(db, user=env.user, host=env.host, password=env.password):
 def get_titanic_data():
     filename = 'titantic.csv'
     if os.path.isfile(filename):
-        df = pd.read_csv(filename)
+        df = pd.read_csv(filename, index_col=0)
         return df
     else:
         df = pd.read_sql('SELECT * FROM passengers', get_connection('titanic_db'))
         df.to_csv(filename)
         return df
     
-titanicdf = get_titanic_data()
-print(titanicdf.head())
-
 # 2. get_iris_data: returns the data from the iris_db on the codeup data science database as a pandas data frame. 
 # The returned data frame should include the actual name of the species in addition to the species_ids.
 def get_iris_data():
     filename = 'iris.csv'
     if os.path.isfile(filename):
-        df = pd.read_csv(filename)
+        df = pd.read_csv(filename, index_col=0)
         return df
     else:
         df = pd.read_sql('select * from measurements join species using (species_id);', get_connection('iris_db'))
         df.to_csv(filename)
         return df
-
-irisdf = get_iris_data()
-print(irisdf.head())
 
 
 # 3. Once you've got your get_titanic_data and get_iris_data functions written, now it's time to add caching to them. 

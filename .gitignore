@@ -5,3 +5,4 @@ __paycache__
 titanic.csv
 iris.csv
 Spreadsheets_Exercises_Solutions.xlsx
+*.csv
