@@ -8,7 +8,7 @@ def get_connection(db, user=env.user, host=env.host, password=env.password):
 
 # 1. get_titanic_data: returns the titanic data from the codeup data science database as a pandas data frame.
 def get_titanic_data():
-    filename = 'titantic.csv'
+    filename = 'titanic.csv'
     if os.path.isfile(filename):
         df = pd.read_csv(filename, index_col=0)
         return df
