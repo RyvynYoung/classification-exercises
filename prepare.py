@@ -16,6 +16,11 @@ def drop_cols(df, col_list):
     df = df.drop(columns=[col_list])
 
 # prep the iris data
+def split_iris_dataset(df):
+    train_validate, test = train_test_split(df, test_size=.2, random_state=123, stratify=df.species)
+    train, validate = train_test_split(train_validate, test_size=.3, random_state=123, stratify=train_validate.species)
+    return train, validate, test
+
 def prep_iris(df):
     # Drop the species_id and measurement_id columns
     df = df.drop(columns=['species_id', 'measurement_id'])
@@ -27,10 +32,13 @@ def prep_iris(df):
     df_dummies = pd.get_dummies(df[['species']], drop_first=True)
     df = pd.concat([df, df_dummies], axis=1)
     
-    return df
+    # split the data
+    train, validate, test = split_iris_dataset(df)
+    
+    return train, validate, test
 
 # prep the titantic data
-def split_dataset(df):
+def split_titanic_dataset(df):
     train_validate, test = train_test_split(df, test_size=.2, random_state=123, stratify=df.survived)
     train, validate = train_test_split(train_validate, test_size=.3, random_state=123, stratify=train_validate.survived)
     return train, validate, test
@@ -54,7 +62,7 @@ def prep_titanic(df):
     df = df.drop(columns=['embarked', 'deck', 'passenger_id', 'class', 'sex'])
     
     # split the data
-    train, validate, test = split_dataset(df)
+    train, validate, test = split_titanic_dataset(df)
     
     # handle missing ages
     train, validate, test = impute(train, validate, test, 'median', ['age'])
