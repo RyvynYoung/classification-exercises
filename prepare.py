@@ -55,11 +55,11 @@ def prep_titanic(df):
     df = df[~df.embark_town.isnull()]
     
     # use the pd.get_dummies as in lesson to encode embark_town column
-    df_dummies = pd.get_dummies(df[['embark_town']], drop_first=True)
+    df_dummies = pd.get_dummies(df[['sex', 'embark_town']], drop_first=True)
     df = pd.concat([df, df_dummies], axis=1)
     
     # Drop the embarked and deck columns
-    df = df.drop(columns=['embarked', 'deck', 'passenger_id', 'class', 'sex'])
+    df = df.drop(columns=['embarked', 'deck', 'passenger_id', 'class', 'sex', 'embark_town'])
     
     # split the data
     train, validate, test = split_titanic_dataset(df)
